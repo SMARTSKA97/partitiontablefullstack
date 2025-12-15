@@ -1,0 +1,59 @@
+<div class="fade-in">
+    <p-card header="Bill Reports" class="glass-effect">
+        <div class="text-center mb-5">
+            <i class="pi pi-chart-bar" style="font-size: 4rem; color: var(--primary-soft);"></i>
+            <h3 class="mt-3 mb-2">Generate Financial Reports</h3>
+            <p class="text-600">Download comprehensive bill reports in Excel or PDF format</p>
+        </div>
+
+        <div class="grid">
+            <div class="col-12 md:col-6 md:col-offset-3">
+                <label for="fy" class="block mb-2 font-semibold text-center">
+                    <i class="pi pi-calendar mr-2"></i>Select Financial Year
+                </label>
+                <p-dropdown id="fy" [options]="financialYears" [(ngModel)]="selectedFinancialYear"
+                    optionLabel="FinancialYear" optionValue="Id" class="w-full" placeholder="Select Financial Year">
+                    <ng-template pTemplate="selectedItem" let-item>
+                        <div class="flex align-items-center gap-2 justify-content-center" *ngIf="item">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{ item.FinancialYear }}</span>
+                            <span *ngIf="item.IsActive" class="ml-2 p-badge p-badge-success">Active</span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-item>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{ item.FinancialYear }}</span>
+                            <span *ngIf="item.IsActive" class="ml-auto p-badge p-badge-success">Active</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="flex gap-3 mt-5 justify-content-center flex-wrap">
+            <button pButton label="Download Excel" icon="pi pi-file-excel" class="p-button-success p-button-lg"
+                (click)="downloadExcel()" [disabled]="loading" [loading]="loading">
+            </button>
+
+            <button pButton label="Download PDF" icon="pi pi-file-pdf" class="p-button-danger p-button-lg"
+                (click)="downloadPdf()" [disabled]="loading" [loading]="loading">
+            </button>
+        </div>
+
+        <div class="mt-5 p-4 surface-100 border-round" *ngIf="!loading">
+            <h4 class="text-primary mb-3">
+                <i class="pi pi-info-circle mr-2"></i>Report Information
+            </h4>
+            <ul class="line-height-3">
+                <li><i class="pi pi-check-circle text-green-500 mr-2"></i>Reports include all bills for the selected
+                    financial year</li>
+                <li><i class="pi pi-check-circle text-green-500 mr-2"></i>Excel format provides detailed data with
+                    summary statistics</li>
+                <li><i class="pi pi-check-circle text-green-500 mr-2"></i>PDF format offers a professional print-ready
+                    document</li>
+                <li><i class="pi pi-check-circle text-green-500 mr-2"></i>All amounts are displayed in INR currency</li>
+            </ul>
+        </div>
+    </p-card>
+</div>

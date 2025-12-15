@@ -1,0 +1,233 @@
+/* ===== SHARED COMPONENT STYLES ===== */
+/* Import this in components that need consistent styling */
+
+/* Section Cards */
+.section-card {
+    background: #FAFAFA;
+    border-radius: 8px;
+    padding: 0.75rem;
+    border: 1px solid #E0E0E0;
+    margin-bottom: 0.75rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--primary-light);
+    font-weight: 600;
+    color: var(--primary-soft);
+    font-size: 0.95rem;
+}
+
+.section-header i {
+    font-size: 1rem;
+}
+
+/* Field Labels */
+.field-label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #424242;
+}
+
+.required {
+    color: #E57373;
+    margin-left: 2px;
+}
+
+/* Entry Rows */
+.entry-row {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #E8E8E8;
+    transition: all 0.2s ease;
+}
+
+.entry-row:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Empty States */
+.empty-state {
+    text-align: center;
+    padding: 1rem;
+    color: #757575;
+    font-size: 0.875rem;
+    font-style: italic;
+}
+
+/* Compact Card */
+.compact-card ::ng-deep .p-card-body {
+    padding: 0 !important;
+}
+
+/* Grid Compact Spacing */
+::ng-deep .grid-compact {
+    margin-left: -0.25rem !important;
+    margin-right: -0.25rem !important;
+}
+
+::ng-deep .grid-compact>[class*="col-"] {
+    padding-left: 0.25rem !important;
+    padding-right: 0.25rem !important;
+}
+
+/* ===== PRIMENG OVERRIDES ===== */
+::ng-deep {
+
+    /* Input Fields - Compact */
+    .p-inputtext,
+    .p-inputnumber-input,
+    .p-calendar input,
+    .p-dropdown {
+        padding: 0.5rem !important;
+        font-size: 0.875rem !important;
+        border-radius: 6px;
+    }
+
+    /* Buttons - Compact */
+    .p-button {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.875rem !important;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+    }
+
+    .p-button-sm {
+        padding: 0.35rem 0.75rem !important;
+        font-size: 0.8rem !important;
+    }
+
+    .p-button:not(:disabled):hover {
+        transform: translateY(-1px);
+    }
+
+    .p-button-text {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .p-button-text:hover {
+        background: rgba(0, 0, 0, 0.04) !important;
+    }
+
+    /* Focus States */
+    .p-inputtext:focus,
+    .p-inputnumber-input:focus,
+    .p-dropdown:focus,
+    .p-calendar input:focus {
+        border-color: var(--primary-soft) !important;
+        box-shadow: 0 0 0 3px rgba(159, 168, 218, 0.12) !important;
+    }
+
+    /* Checkbox */
+    .p-checkbox {
+        width: 18px;
+        height: 18px;
+    }
+
+    .p-checkbox .p-checkbox-box {
+        width: 18px;
+        height: 18px;
+    }
+
+    .p-checkbox .p-checkbox-box.p-highlight {
+        background: var(--primary-soft) !important;
+        border-color: var(--primary-soft) !important;
+    }
+
+    /* Currency Inputs */
+    .p-inputnumber-input {
+        font-weight: 500;
+        color: #2E7D32;
+    }
+
+    /* Buttons */
+    .p-button-success {
+        background: linear-gradient(135deg, #A5D6A7, #81C784) !important;
+        border: none !important;
+    }
+
+    .p-button-success:hover:not(:disabled) {
+        background: linear-gradient(135deg, #81C784, #66BB6A) !important;
+    }
+
+    .p-button-danger {
+        color: #E57373 !important;
+    }
+
+    .p-button-danger:hover:not(:disabled) {
+        background: rgba(229, 115, 115, 0.1) !important;
+    }
+
+    .p-button-secondary {
+        background: linear-gradient(135deg, #B0BEC5, #90A4AE) !important;
+        border: none !important;
+    }
+
+    /* Calendar */
+    .p-calendar .p-button {
+        padding: 0.5rem !important;
+    }
+
+    .p-datepicker {
+        border-radius: 12px;
+    }
+
+    .p-datepicker table td.p-datepicker-today>span {
+        background: var(--primary-light);
+        color: var(--text-primary);
+    }
+
+    /* Dropdown */
+    .p-dropdown-panel {
+        border-radius: 8px;
+    }
+
+    /* Table */
+    .p-datatable .p-datatable-tbody>tr:hover {
+        background-color: var(--bg-hover);
+    }
+
+    /* Card */
+    .p-card-header {
+        background: linear-gradient(135deg, #E8EAF6 0%, #F3E5F5 100%) !important;
+        border-radius: 16px 16px 0 0;
+    }
+
+    /* Tags */
+    .p-tag {
+        border-radius: 4px;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .section-card {
+        padding: 0.5rem;
+    }
+
+    .field-label {
+        font-size: 0.8rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .entry-row {
+        padding: 0.4rem;
+    }
+
+    .section-header {
+        font-size: 0.9rem;
+    }
+}

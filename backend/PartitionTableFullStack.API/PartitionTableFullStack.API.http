@@ -1,0 +1,6 @@
+@PartitionTableFullStack.API_HostAddress = http://localhost:5265
+
+GET {{PartitionTableFullStack.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

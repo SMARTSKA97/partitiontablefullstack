@@ -1,0 +1,113 @@
+<div class="fade-in">
+    <p-card class="glass-effect">
+        <!-- Header with Actions -->
+        <ng-template pTemplate="header">
+            <div class="flex justify-content-between align-items-center p-3">
+                <div>
+                    <h2 class="m-0 text-primary">
+                        <i class="pi pi-list mr-2"></i>Bills List
+                    </h2>
+                    <p class="text-600 mt-2">Manage and view all bills</p>
+                </div>
+                <button pButton label="Create New Bill" icon="pi pi-plus" class="p-button-success"
+                    routerLink="/bills/create"></button>
+            </div>
+        </ng-template>
+
+        <!-- Filters -->
+        <div class="grid mb-4">
+            <div class="col-12 md:col-4">
+                <label for="fy" class="block mb-2 font-semibold">
+                    <i class="pi pi-calendar mr-2"></i>Financial Year
+                </label>
+                <p-dropdown id="fy" [options]="financialYears" [(ngModel)]="selectedFinancialYear"
+                    optionLabel="FinancialYear" optionValue="Id" (onChange)="onFinancialYearChange()" class="w-full"
+                    placeholder="Select FY">
+                    <ng-template pTemplate="selectedItem" let-item>
+                        <div class="flex align-items-center gap-2" *ngIf="item">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{ item.FinancialYear }}</span>
+                            <span *ngIf="item.IsActive" class="ml-2 p-badge p-badge-success">Active</span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="item" let-item>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-calendar"></i>
+                            <span>{{ item.FinancialYear }}</span>
+                            <span *ngIf="item.IsActive" class="ml-auto p-badge p-badge-success">Active</span>
+                        </div>
+                    </ng-template>
+                </p-dropdown>
+            </div>
+
+            <div class="col-12 md:col-8">
+                <label for="search" class="block mb-2 font-semibold">
+                    <i class="pi pi-search mr-2"></i>Global Search
+                </label>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-search"></i>
+                    </span>
+                    <input pInputText id="search" [(ngModel)]="searchText" (keyup.enter)="onSearch()" type="text"
+                        placeholder="Search by bill no, DDO code, amount..." />
+                    <button pButton type="button" label="Search" icon="pi pi-search" (click)="onSearch()"
+                        class="p-button-primary"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bills Table -->
+        <p-table [value]="bills" [loading]="loading" [paginator]="true" [rows]="pageSize" [totalRecords]="totalRecords"
+            [lazy]="true" (onLazyLoad)="onPageChange($event)" responsiveLayout="scroll" styleClass="slide-in-left">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Bill No</th>
+                    <th>Bill Date</th>
+                    <th>DDO Code</th>
+                    <th class="text-right">Gross Amount</th>
+                    <th class="text-right">Net Amount</th>
+                    <th>Status</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-bill>
+                <tr>
+                    <td>
+                        <strong class="text-primary">{{ bill.BillNo || 'N/A' }}</strong>
+                    </td>
+                    <td>
+                        <i class="pi pi-calendar mr-2"></i>
+                        {{ bill.BillDate | date:'dd MMM yyyy' }}
+                    </td>
+                    <td>
+                        <i class="pi pi-building mr-2"></i>
+                        {{ bill.DdoCode }}
+                    </td>
+                    <td class="text-right">
+                        <span class="font-semibold">{{ bill.GrossAmount | currency:'INR' }}</span>
+                    </td>
+                    <td class="text-right">
+                        <span class="font-semibold">{{ bill.NetAmount | currency:'INR' }}</span>
+                    </td>
+                    <td>
+                        <p-tag [value]="getStatusLabel(bill.Status)"
+                            [severity]="getStatusSeverity(bill.Status)"></p-tag>
+                    </td>
+                    <td class="text-center">
+                        <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info p-button-sm"
+                            (click)="viewDetails(bill.BillId)" pTooltip="View Details" tooltipPosition="left"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" class="text-center p-5">
+                        <i class="pi pi-inbox text-6xl text-400 mb-3"></i>
+                        <h3 class="text-600">No bills found</h3>
+                        <p class="text-500">Try adjusting your search criteria or create a new bill</p>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

@@ -1,0 +1,287 @@
+<div class="fade-in">
+    <p-card class="glass-effect compact-card">
+        <!-- Header -->
+        <ng-template pTemplate="header">
+            <div class="p-3 border-bottom-1 surface-border">
+                <div class="flex align-items-center gap-2">
+                    <div class="header-icon">
+                        <i class="pi pi-file-edit text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="m-0 text-900 text-xl">Create New Bill</h2>
+                        <p class="text-600 m-0 text-sm">Complete bill details and components</p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <form [formGroup]="billForm" (ngSubmit)="onSubmit()" class="p-3">
+
+            <!-- Basic Information -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-id-card"></i>
+                    <span>Basic Information</span>
+                </div>
+                <div class="grid grid-compact">
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">Bill Date <span class="required">*</span></label>
+                        <p-calendar formControlName="BillDate" [showIcon]="true" dateFormat="dd/mm/yy" class="w-full"
+                            appendTo="body"></p-calendar>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">DDO Code <span class="required">*</span></label>
+                        <input pInputText formControlName="DdoCode" class="w-full" placeholder="DDO001"
+                            maxlength="50" />
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">Treasury Code <span class="required">*</span></label>
+                        <input pInputText formControlName="TreasuryCode" class="w-full" placeholder="TRE001"
+                            maxlength="50" />
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">TR Master ID <span class="required">*</span></label>
+                        <p-inputNumber formControlName="TrMasterId" class="w-full" [min]="1"></p-inputNumber>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-money-bill"></i>
+                    <span>Financial Details</span>
+                </div>
+                <div class="grid grid-compact">
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">Gross Amount <span class="required">*</span></label>
+                        <p-inputNumber formControlName="GrossAmount" mode="currency" currency="INR" locale="en-IN"
+                            class="w-full"></p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">Net Amount <span class="required">*</span></label>
+                        <p-inputNumber formControlName="NetAmount" mode="currency" currency="INR" locale="en-IN"
+                            class="w-full"></p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">BT Amount</label>
+                        <p-inputNumber formControlName="BtAmount" mode="currency" currency="INR" locale="en-IN"
+                            class="w-full"></p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-3">
+                        <label class="field-label">GST Amount</label>
+                        <p-inputNumber formControlName="GstAmount" mode="currency" currency="INR" locale="en-IN"
+                            class="w-full"></p-inputNumber>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <div class="flex align-items-center h-full" style="min-height: 60px;">
+                            <label class="flex align-items-center gap-2 mb-0 cursor-pointer">
+                                <p-checkbox formControlName="IsGst" [binary]="true"></p-checkbox>
+                                <span class="text-sm font-semibold">Include GST</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <label class="field-label">Remarks</label>
+                        <input pInputText formControlName="Remarks" class="w-full" placeholder="Optional"
+                            maxlength="500" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- BT Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-credit-card"></i>
+                    <span>BT Details</span>
+                    <button pButton type="button" icon="pi pi-plus"
+                        class="p-button-success p-button-sm p-button-text ml-auto" (click)="addBtDetail()"
+                        pTooltip="Add BT"></button>
+                </div>
+                <div formArrayName="BtDetails" class="grid grid-compact">
+                    <div *ngFor="let bt of btDetails.controls; let i = index" [formGroupName]="i"
+                        class="col-12 entry-row-inline">
+                        <div class="grid grid-compact align-items-end">
+                            <div class="col-12 md:col-5">
+                                <label class="field-label">Amount <span class="required">*</span></label>
+                                <p-inputNumber formControlName="Amount" mode="currency" currency="INR" locale="en-IN"
+                                    class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-5">
+                                <label class="field-label">DDO Code</label>
+                                <input pInputText formControlName="DdoCode" class="w-full" maxlength="50" />
+                            </div>
+                            <div class="col-12 md:col-2">
+                                <button pButton type="button" icon="pi pi-trash"
+                                    class="p-button-danger p-button-text p-button-sm w-full" (click)="removeBtDetail(i)"
+                                    [disabled]="btDetails.length === 1"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GST Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-percentage"></i>
+                    <span>GST Details</span>
+                    <button pButton type="button" icon="pi pi-plus"
+                        class="p-button-success p-button-sm p-button-text ml-auto" (click)="addGstDetail()"
+                        pTooltip="Add GST"></button>
+                </div>
+                <div *ngIf="gstDetails.length === 0" class="empty-state">
+                    <i class="pi pi-info-circle"></i> Click + to add GST details
+                </div>
+                <div formArrayName="GstDetails" class="grid grid-compact">
+                    <div *ngFor="let gst of gstDetails.controls; let i = index" [formGroupName]="i"
+                        class="col-12 entry-row-inline">
+                        <div class="grid grid-compact align-items-end">
+                            <div class="col-12 md:col-5">
+                                <label class="field-label">CPIN ID</label>
+                                <p-inputNumber formControlName="CpinId" class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-5">
+                                <label class="field-label">DDO GSTN</label>
+                                <input pInputText formControlName="DdoGstn" class="w-full" placeholder="GSTIN"
+                                    maxlength="15" />
+                            </div>
+                            <div class="col-12 md:col-2">
+                                <button pButton type="button" icon="pi pi-trash"
+                                    class="p-button-danger p-button-text p-button-sm w-full"
+                                    (click)="removeGstDetail(i)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ECS/NEFT Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-send"></i>
+                    <span>ECS/NEFT Details</span>
+                    <button pButton type="button" icon="pi pi-plus"
+                        class="p-button-success p-button-sm p-button-text ml-auto" (click)="addEcsDetail()"
+                        pTooltip="Add Payment"></button>
+                </div>
+                <div formArrayName="EcsDetails" class="grid grid-compact">
+                    <div *ngFor="let ecs of ecsDetails.controls; let i = index" [formGroupName]="i"
+                        class="col-12 entry-row-inline">
+                        <div class="grid grid-compact align-items-end">
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Payee Name <span class="required">*</span></label>
+                                <input pInputText formControlName="PayeeName" class="w-full" maxlength="200" />
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Account No <span class="required">*</span></label>
+                                <input pInputText formControlName="BankAccountNumber" class="w-full" maxlength="18"
+                                    minlength="9" />
+                            </div>
+                            <div class="col-12 md:col-2">
+                                <label class="field-label">IFSC <span class="required">*</span></label>
+                                <input pInputText formControlName="IfscCode" class="w-full" maxlength="11" />
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Amount <span class="required">*</span></label>
+                                <p-inputNumber formControlName="Amount" mode="currency" currency="INR" locale="en-IN"
+                                    class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-1">
+                                <button pButton type="button" icon="pi pi-trash"
+                                    class="p-button-danger p-button-text p-button-sm w-full"
+                                    (click)="removeEcsDetail(i)" [disabled]="ecsDetails.length === 1"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allotment Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-chart-pie"></i>
+                    <span>Allotment Details</span>
+                    <button pButton type="button" icon="pi pi-plus"
+                        class="p-button-success p-button-sm p-button-text ml-auto" (click)="addAllotmentDetail()"
+                        pTooltip="Add Allotment"></button>
+                </div>
+                <div formArrayName="AllotmentDetails" class="grid grid-compact">
+                    <div *ngFor="let allot of allotmentDetails.controls; let i = index" [formGroupName]="i"
+                        class="col-12 entry-row-inline">
+                        <div class="grid grid-compact align-items-end">
+                            <div class="col-12 md:col-4">
+                                <label class="field-label">Amount <span class="required">*</span></label>
+                                <p-inputNumber formControlName="Amount" mode="currency" currency="INR" locale="en-IN"
+                                    class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">HOA ID <span class="required">*</span></label>
+                                <p-inputNumber formControlName="ActiveHoaId" class="w-full" [min]="1"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Allotment ID</label>
+                                <p-inputNumber formControlName="AllotmentId" class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-2">
+                                <button pButton type="button" icon="pi pi-trash"
+                                    class="p-button-danger p-button-text p-button-sm w-full"
+                                    (click)="removeAllotmentDetail(i)"
+                                    [disabled]="allotmentDetails.length === 1"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subvoucher Details -->
+            <div class="section-card">
+                <div class="section-header">
+                    <i class="pi pi-file"></i>
+                    <span>Subvoucher Details</span>
+                    <button pButton type="button" icon="pi pi-plus"
+                        class="p-button-success p-button-sm p-button-text ml-auto" (click)="addSubvoucherDetail()"
+                        pTooltip="Add Subvoucher"></button>
+                </div>
+                <div *ngIf="subvoucherDetails.length === 0" class="empty-state">
+                    <i class="pi pi-info-circle"></i> Click + to add subvoucher details
+                </div>
+                <div formArrayName="SubvoucherDetails" class="grid grid-compact">
+                    <div *ngFor="let sv of subvoucherDetails.controls; let i = index" [formGroupName]="i"
+                        class="col-12 entry-row-inline">
+                        <div class="grid grid-compact align-items-end">
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Subvoucher No</label>
+                                <input pInputText formControlName="SubvoucherNo" class="w-full" placeholder="SV-001"
+                                    maxlength="50" />
+                            </div>
+                            <div class="col-12 md:col-3">
+                                <label class="field-label">Date</label>
+                                <p-calendar formControlName="SubvoucherDate" [showIcon]="true" dateFormat="dd/mm/yy"
+                                    class="w-full" appendTo="body"></p-calendar>
+                            </div>
+                            <div class="col-12 md:col-4">
+                                <label class="field-label">Amount</label>
+                                <p-inputNumber formControlName="SubvoucherAmount" mode="currency" currency="INR"
+                                    locale="en-IN" class="w-full"></p-inputNumber>
+                            </div>
+                            <div class="col-12 md:col-2">
+                                <button pButton type="button" icon="pi pi-trash"
+                                    class="p-button-danger p-button-text p-button-sm w-full"
+                                    (click)="removeSubvoucherDetail(i)"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-2 justify-content-end border-top-1 surface-border pt-3 mt-2">
+                <button pButton type="button" label="Cancel" icon="pi pi-times" class="p-button-secondary"
+                    routerLink="/bills"></button>
+                <button pButton type="submit" label="Create Bill" icon="pi pi-check-circle" class="p-button-success"
+                    [loading]="submitted"></button>
+            </div>
+        </form>
+    </p-card>
+</div>

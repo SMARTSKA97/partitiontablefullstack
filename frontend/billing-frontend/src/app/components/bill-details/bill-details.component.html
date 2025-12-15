@@ -1,0 +1,142 @@
+<div class="container p-4" *ngIf="bill">
+    <p-card [header]="'Bill Details - ' + bill.BillNo">
+        <div class="flex justify-content-end mb-3">
+            <button pButton label="Back to List" icon="pi pi-arrow-left" class="p-button-secondary"
+                (click)="goBack()"></button>
+        </div>
+
+        <p-tabView>
+            <p-tabPanel header="Bill Information">
+                <div class="grid">
+                    <div class="col-12 md:col-6">
+                        <strong>Bill No:</strong> {{ bill.BillNo }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>Bill Date:</strong> {{ bill.BillDate | date }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>DDO Code:</strong> {{ bill.DdoCode }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>Treasury Code:</strong> {{ bill.TreasuryCode }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>Gross Amount:</strong> {{ bill.GrossAmount | currency:'INR' }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>Net Amount:</strong> {{ bill.NetAmount | currency:'INR' }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>BT Amount:</strong> {{ bill.BtAmount | currency:'INR' }}
+                    </div>
+                    <div class="col-12 md:col-6">
+                        <strong>GST:</strong> {{ bill.IsGst ? 'Yes (' + (bill.GstAmount | currency:'INR') + ')' : 'No'
+                        }}
+                    </div>
+                    <div class="col-12">
+                        <strong>Remarks:</strong> {{ bill.Remarks || 'N/A' }}
+                    </div>
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="BT Details" *ngIf="bill.BtDetails.length > 0">
+                <p-table [value]="bill.BtDetails">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>BT Serial</th>
+                            <th>Amount</th>
+                            <th>DDO Code</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-bt>
+                        <tr>
+                            <td>{{ bt.BtSerial }}</td>
+                            <td>{{ bt.Amount | currency:'INR' }}</td>
+                            <td>{{ bt.DdoCode }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="GST Details" *ngIf="bill.GstDetails.length > 0">
+                <p-table [value]="bill.GstDetails">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>CPIN ID</th>
+                            <th>GSTN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-gst>
+                        <tr>
+                            <td>{{ gst.CpinId }}</td>
+                            <td>{{ gst.DdoGstn }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="ECS/NEFT Details" *ngIf="bill.EcsDetails.length > 0">
+                <p-table [value]="bill.EcsDetails">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Payee Name</th>
+                            <th>Account Number</th>
+                            <th>IFSC</th>
+                            <th>Amount</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-ecs>
+                        <tr>
+                            <td>{{ ecs.PayeeName }}</td>
+                            <td>{{ ecs.BankAccountNumber }}</td>
+                            <td>{{ ecs.IfscCode }}</td>
+                            <td>{{ ecs.Amount | currency:'INR' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="Allotment Details" *ngIf="bill.AllotmentDetails.length > 0">
+                <p-table [value]="bill.AllotmentDetails">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Allotment ID</th>
+                            <th>Amount</th>
+                            <th>HOA ID</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-allot>
+                        <tr>
+                            <td>{{ allot.AllotmentId }}</td>
+                            <td>{{ allot.Amount | currency:'INR' }}</td>
+                            <td>{{ allot.ActiveHoaId }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+
+            <p-tabPanel header="Subvoucher Details" *ngIf="bill.SubvoucherDetails.length > 0">
+                <p-table [value]="bill.SubvoucherDetails">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Subvoucher No</th>
+                            <th>Amount</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-sv>
+                        <tr>
+                            <td>{{ sv.SubvoucherNo }}</td>
+                            <td>{{ sv.SubvoucherAmount | currency:'INR' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+        </p-tabView>
+    </p-card>
+</div>
+
+<div class="container p-4" *ngIf="loading">
+    <p-card>
+        <div class="text-center">Loading...</div>
+    </p-card>
+</div>

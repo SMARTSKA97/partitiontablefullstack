@@ -1,0 +1,310 @@
+/* Import PrimeNG Theme - Using Lara Light Indigo for pastel base */
+@import "primeng/resources/themes/lara-light-indigo/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import "primeflex/primeflex.css";
+
+/* Pastel Color Palette */
+:root {
+    --pastel-pink: #FFD1DC;
+    --pastel-blue: #AEC6CF;
+    --pastel-mint: #B5EAD7;
+    --pastel-lavender: #E0BBE4;
+    --pastel-peach: #FFDAB9;
+    --pastel-yellow: #FFF9C4;
+    --pastel-coral: #FFB3BA;
+
+    /* Adjusted colors for better UI */
+    --primary-soft: #9FA8DA;
+    --primary-light: #C5CAE9;
+    --accent-soft: #B0BEC5;
+    --success-soft: #A5D6A7;
+    --error-soft: #EF9A9A;
+    --warning-soft: #FFE082;
+
+    /* Backgrounds */
+    --bg-main: #F8F9FA;
+    --bg-card: #FFFFFF;
+    --bg-hover: #F3E5F5;
+
+    /* Text */
+    --text-primary: #424242;
+    --text-secondary: #757575;
+    --text-muted: #9E9E9E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--pastel-blue) 0%, var(--pastel-lavender) 50%, var(--pastel-pink) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* PrimeNG Component Overrides with Pastel Theme */
+.p-component {
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.p-button {
+    font-size: 14px;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.p-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.p-button-success {
+    background: linear-gradient(135deg, var(--success-soft) 0%, #81C784 100%);
+    border-color: var(--success-soft);
+}
+
+.p-button-danger {
+    background: linear-gradient(135deg, var(--error-soft) 0%, #E57373 100%);
+    border-color: var(--error-soft);
+}
+
+.p-button-secondary {
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #90A4AE 100%);
+    border-color: var(--accent-soft);
+}
+
+.p-card {
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    border: none;
+    background: var(--bg-card);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.p-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.p-card .p-card-header {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--pastel-lavender) 100%);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.p-card .p-card-body {
+    padding: 2rem;
+}
+
+.p-inputtext,
+.p-dropdown,
+.p-calendar {
+    border-radius: 8px;
+    border: 2px solid var(--primary-light);
+    padding: 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.p-inputtext:focus,
+.p-dropdown:focus,
+.p-calendar:focus {
+    border-color: var(--primary-soft);
+    box-shadow: 0 0 0 4px rgba(159, 168, 218, 0.2);
+}
+
+.p-datatable {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--pastel-lavender) 100%);
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 1rem;
+    border: none;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+    transition: all 0.2s ease;
+}
+
+.p-datatable .p-datatable-tbody>tr:hover {
+    background-color: var(--bg-hover);
+}
+
+.p-datatable .p-datatable-tbody>tr>td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(197, 202, 233, 0.3);
+}
+
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: var(--primary-soft);
+    border-color: var(--primary-soft);
+    color: white;
+}
+
+.p-message {
+    border-radius: 8px;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-left: 4px solid;
+}
+
+.p-message-success {
+    background-color: #E8F5E9;
+    border-left-color: var(--success-soft);
+    color: #2E7D32;
+}
+
+.p-message-error {
+    background-color: #FFEBEE;
+    border-left-color: var(--error-soft);
+    color: #C62828;
+}
+
+/* Custom Utility Classes */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.gradient-header {
+    background: linear-gradient(135deg, var(--primary-soft) 0%, var(--pastel-lavender) 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--pastel-mint) 0%, var(--pastel-blue) 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Animation Classes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-main);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-soft);
+}
+
+/* Loading State */
+.loading-spinner {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--primary-light);
+    border-top-color: var(--primary-soft);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* SweetAlert2 Custom Styling */
+.swal2-popup {
+    border-radius: 16px;
+    font-family: inherit;
+}
+
+.swal2-confirm {
+    border-radius: 8px !important;
+    padding: 0.75rem 2rem !important;
+    font-weight: 500 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .p-card .p-card-body {
+        padding: 1.5rem;
+    }
+
+    .gradient-header {
+        padding: 1.5rem;
+    }
+}
