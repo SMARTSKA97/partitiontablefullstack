@@ -1,31 +1,23 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PartitionTableFullStack.API.Models;
 
-[Table("financial_year_master", Schema = "master")]
-public class FinancialYearMaster
+/// <summary>
+/// Financial years (e.g., 2024-2025)
+/// </summary>
+public partial class FinancialYearMaster
 {
-    [Key]
-    [Column("id")]
     public short Id { get; set; }
 
-    [Column("financial_year")]
-    [StringLength(9)]
-    public string FinancialYear { get; set; } = string.Empty;
+    public string FinancialYear { get; set; } = null!;
 
-    [Column("is_active")]
-    public bool IsActive { get; set; }
+    /// <summary>
+    /// Short code like 2425 for partition naming
+    /// </summary>
+    public string FyCode { get; set; } = null!;
 
-    [Column("created_by_userid")]
-    public long? CreatedByUserId { get; set; }
+    public bool? IsActive { get; set; }
 
-    [Column("created_at")]
     public DateTime? CreatedAt { get; set; }
-
-    [Column("updated_by_userid")]
-    public long? UpdatedByUserId { get; set; }
-
-    [Column("updated_at")]
-    public DateTime? UpdatedAt { get; set; }
 }
